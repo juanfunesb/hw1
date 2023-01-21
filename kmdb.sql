@@ -102,7 +102,7 @@
 -- Drop existing tables, so you'll start fresh each time this script is run.
 -- TODO!
 DROP TABLE IF EXISTS actors;
-DROP TABLE IF EXISTS casts;
+DROP TABLE IF EXISTS characters;
 DROP TABLE IF EXISTS movies;
 
 
@@ -114,9 +114,9 @@ CREATE TABLE actors (
     actor_name TEXT,
 );
 
-CREATE TABLE casts (
+CREATE TABLE characters (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    cast_name TEXT,
+    character_name TEXT,
     id_actor INTEGER,
     id_movie INTEGER,
 );
@@ -133,11 +133,32 @@ CREATE TABLE movies (
 -- Use hard-coded foreign key IDs when necessary
 -- TODO!
 
-INSERT INTO actors ("actor_name") VALUES ("Christian Bale"),("Michael Caine"),("Liam Neeson"),("Katie Holmes"),
-("Gary Oldman"),("Heath Ledger"), ("Aaron Eckhart"),("Maggie Gyllenhaal"),("Tom Hardy"),("Joseph Gordon-Levitt"),
-("Anne Hathaway")
+INSERT INTO actors ("actor_name") VALUES 
+("Christian Bale"),("Michael Caine"),("Liam Neeson"),("Katie Holmes"),
+("Gary Oldman"),("Heath Ledger"), ("Aaron Eckhart"),("Maggie Gyllenhaal"),
+("Tom Hardy"),("Joseph Gordon-Levitt"),("Anne Hathaway")
 
-INSERT INTO casts VALUES 
+INSERT INTO characters ("character_name","id_actor","id_movie") VALUES
+("Bruce Wayne",1,1),
+("Bruce Wayne",1,2),
+("Bruce Wayne",1,3),
+("Alfred",2,1),
+("Alfred",2,2),
+("Ra's Al Ghul",3,1),
+("Katie Holmes",4,1),
+("Gary Oldman",5,1),
+("Hetag Ledger",6,2),
+("Aaron Eckhart",7,2),
+("Maggie Gyllenhaal",8,2),
+("Tom Hardy",9,3),
+("Joseph Gordon-Levitt",10,3),
+("Anne Hathaway",11,3)
+
+
+INSERT INTO movies ("movie_name","year","rating","studio") VALUES 
+("Batman Begins","2005","PG-13","Warner Bros."),
+("The Dark Knight","2008","PG-13","Warner Bros."),
+("The Dark Knight Rises","2012","PG-13","Warner Bros.")
 
 
 -- Prints a header for the movies output
