@@ -98,7 +98,7 @@
 -- Turns column mode on but headers off
 .mode column
 .headers off
-
+.width 20 20 20 20
 -- Drop existing tables, so you'll start fresh each time this script is run.
 -- TODO!
 DROP TABLE IF EXISTS actors;
@@ -111,24 +111,23 @@ DROP TABLE IF EXISTS movies;
 
 CREATE TABLE actors (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    actor_name TEXT,
+    actor_name TEXT
 );
 
 CREATE TABLE characters (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     character_name TEXT,
     id_actor INTEGER,
-    id_movie INTEGER,
+    id_movie INTEGER
 );
-
 
 CREATE TABLE movies (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     movie_name TEXT,
-    year INTEGER,
+    year_released INTEGER,
     rating TEXT,
     studio TEXT
-)
+);
 -- Insert data into your database that reflects the sample data shown above
 -- Use hard-coded foreign key IDs when necessary
 -- TODO!
@@ -136,7 +135,7 @@ CREATE TABLE movies (
 INSERT INTO actors ("actor_name") VALUES 
 ("Christian Bale"),("Michael Caine"),("Liam Neeson"),("Katie Holmes"),
 ("Gary Oldman"),("Heath Ledger"), ("Aaron Eckhart"),("Maggie Gyllenhaal"),
-("Tom Hardy"),("Joseph Gordon-Levitt"),("Anne Hathaway")
+("Tom Hardy"),("Joseph Gordon-Levitt"),("Anne Hathaway");
 
 INSERT INTO characters ("character_name","id_actor","id_movie") VALUES
 ("Bruce Wayne",1,1),
@@ -145,20 +144,21 @@ INSERT INTO characters ("character_name","id_actor","id_movie") VALUES
 ("Alfred",2,1),
 ("Alfred",2,2),
 ("Ra's Al Ghul",3,1),
-("Katie Holmes",4,1),
-("Gary Oldman",5,1),
-("Hetag Ledger",6,2),
-("Aaron Eckhart",7,2),
-("Maggie Gyllenhaal",8,2),
-("Tom Hardy",9,3),
-("Joseph Gordon-Levitt",10,3),
-("Anne Hathaway",11,3)
+("Rachel Dawes",4,1),
+("Rachel Dawes",8,2),
+("Commissioner Gordon",5,1),
+("Commissioner Gordon",5,3),
+("Joker",6,2),
+("Harvey Dent",7,2),
+("Bane",9,3),
+("John Blake",10,3),
+("Selina Kyle",11,3);
 
 
-INSERT INTO movies ("movie_name","year","rating","studio") VALUES 
+INSERT INTO movies ("movie_name","year_released","rating","studio") VALUES 
 ("Batman Begins","2005","PG-13","Warner Bros."),
 ("The Dark Knight","2008","PG-13","Warner Bros."),
-("The Dark Knight Rises","2012","PG-13","Warner Bros.")
+("The Dark Knight Rises","2012","PG-13","Warner Bros.");
 
 
 -- Prints a header for the movies output
@@ -169,6 +169,9 @@ INSERT INTO movies ("movie_name","year","rating","studio") VALUES
 -- The SQL statement for the movies output
 -- TODO!
 
+SELECT movie_name, year_released, rating, studio 
+FROM movies;
+
 -- Prints a header for the cast output
 .print ""
 .print "Top Cast"
@@ -178,3 +181,7 @@ INSERT INTO movies ("movie_name","year","rating","studio") VALUES
 
 -- The SQL statement for the cast output
 -- TODO!
+
+SELECT movies.movie_name, actors.actor_name, characters.character_name 
+FROM characters INNER JOIN actors ON characters.id_actor = actors.id 
+INNER JOIN movies ON characters.id_movie = movies.id ORDER BY movies.movie_name;
